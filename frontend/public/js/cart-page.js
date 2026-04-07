@@ -4,6 +4,24 @@ function findCategoryForCartItem(productId) {
 }
 
 function createRecommendationMarkup(product, label) {
+  const fullStars = Math.round(product.rating || 0);
+  const stars = `${"★".repeat(fullStars)}${"☆".repeat(Math.max(0, 5 - fullStars))}`;
+  const priceBlock = product.originalPrice && product.originalPrice > product.price
+    ? `
+        <div class="rating-row">
+          <span class="stars" aria-hidden="true">${stars}</span>
+          <span class="rating-text">${product.rating}/5</span>
+        </div>
+        <div class="price-stack">
+          <div class="price">${window.VedVigyanCart.formatINR(product.price)}</div>
+          <div class="price-meta">
+            <span class="old-price">${window.VedVigyanCart.formatINR(product.originalPrice)}</span>
+            <span class="discount-badge">${product.discountPercent}% OFF</span>
+          </div>
+        </div>
+      `
+    : `<div class="price">${window.VedVigyanCart.formatINR(product.price)}</div>`;
+
   return `
     <article class="recommend-card">
       <div class="thumb">
@@ -13,7 +31,7 @@ function createRecommendationMarkup(product, label) {
         <div class="eyebrow">${label}</div>
         <h3>${product.name}</h3>
         <p class="sub" style="margin:0">${product.short}</p>
-        <div class="price">${window.VedVigyanCart.formatINR(product.price)}</div>
+        ${priceBlock}
         <div class="actions">
           <a class="btn small" href="${product.url}">View Details</a>
           <button class="btn small primary" type="button" data-add-to-cart="${product.id}">Add to Cart</button>

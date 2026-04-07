@@ -80,7 +80,7 @@
           <div class="breadcrumbs">Home / Contact</div>
           <h1 class="section-title" style="margin:0 0 6px">Contact Ved Vigyan</h1>
           <p class="section-sub" style="margin:0">
-            Ask about authenticity, usage, and product recommendations. (This form is demo-only; it shows a success message.)
+            Ask about authenticity, usage, and product recommendations. We will open WhatsApp on your query after you submit.
           </p>
         </div>
 
@@ -100,9 +100,13 @@
                     <label for="cemail">Email *</label>
                     <input id="cemail" name="email" type="email" autocomplete="email" required />
                   </div>
+                  <div class="field">
+                    <label for="cphone">Phone *</label>
+                    <input id="cphone" name="phone" type="tel" autocomplete="tel" required />
+                  </div>
                   <div class="field" style="grid-column:1/-1">
                     <label for="cmsg">Message *</label>
-                    <textarea id="cmsg" name="message" required placeholder="Tell us what you need…"></textarea>
+                    <textarea id="cmsg" name="message" required placeholder="Tell us what you need..."></textarea>
                   </div>
                 </div>
                 <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
@@ -117,8 +121,9 @@
             <div class="body">
               <h2 style="margin:0">Support</h2>
               <p class="sub" style="margin:10px 0 0">
-                Email: <a href="mailto:support@vedvigyan.in"><b>support@vedvigyan.in</b></a><br />
-                Phone: <a href="tel:+919000000000"><b>+91 90000 00000</b></a>
+                Email: <a href="mailto:Vedvigyanindia@gmail.com"><b>Vedvigyanindia@gmail.com</b></a><br />
+                Phone: <a href="tel:+917900811101"><b>+91 7900811101</b></a><br />
+                WhatsApp: <a href="https://wa.me/917900811101" target="_blank" rel="noopener noreferrer"><b>Chat on WhatsApp</b></a>
               </p>
               <div class="chakra" style="margin-top:12px">
                 <b>Authenticity note:</b> For high-value Rudraksha, ask for clear photos and consider lab testing.
@@ -143,11 +148,11 @@
         </div>
         <div class="foot">
           <h4>Contact</h4>
-          <p>Email: <a href="mailto:support@vedvigyan.in">support@vedvigyan.in</a></p>
-          <p>Phone: <a href="tel:+919000000000">+91 90000 00000</a></p>
+          <p>Email: <a href="mailto:Vedvigyanindia@gmail.com">Vedvigyanindia@gmail.com</a></p>
+          <p>Phone: <a href="tel:+917900811101">+91 7900811101</a></p>
         </div>
       </div>
-      <div class="copyright">© 2026 Ved Vigyan</div>
+      <div class="copyright">� 2026 Ved Vigyan</div>
     </footer>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -158,11 +163,23 @@
         if (!form) return;
         form.addEventListener("submit", (e) => {
           e.preventDefault();
-          if (window.VedVigyanCart?.toast) window.VedVigyanCart.toast("Message sent (demo)");
+          const data = new FormData(form);
+          const name = String(data.get("name") || "").trim();
+          const email = String(data.get("email") || "").trim();
+          const phone = String(data.get("phone") || "").trim();
+          const message = String(data.get("message") || "").trim();
+          const whatsappText =
+            `Ved Vigyan Query%0A` +
+            `Name: ${encodeURIComponent(name)}%0A` +
+            `Email: ${encodeURIComponent(email)}%0A` +
+            `Phone: ${encodeURIComponent(phone)}%0A` +
+            `Message: ${encodeURIComponent(message)}`;
+
+          if (window.VedVigyanCart?.toast) window.VedVigyanCart.toast("Opening WhatsApp");
           form.reset();
+          window.open(`https://wa.me/917900811101?text=${whatsappText}`, "_blank", "noopener");
         });
       });
     </script>
   </body>
 </html>
-

@@ -45,11 +45,13 @@ function updateWishButtons(root = document) {
 
 function wireWishlistButtons(root = document) {
   root.querySelectorAll("[data-wishlist]").forEach((btn) => {
+    if (btn.dataset.vvWishlistBound === "true") return;
+    btn.dataset.vvWishlistBound = "true";
     btn.addEventListener("click", () => {
       const id = btn.getAttribute("data-wishlist");
       if (!id) return;
       const nowWished = toggleWishlist(id);
-      updateWishButtons(root);
+      updateWishButtons(document);
       renderWishlistBadge();
       window.VedVigyanCart?.toast?.(nowWished ? "Added to wishlist" : "Removed from wishlist");
     });

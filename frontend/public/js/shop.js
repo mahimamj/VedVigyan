@@ -20,6 +20,32 @@ function renderShop() {
   let minPrice = "";
   let maxPrice = "";
 
+  function renderStars(rating) {
+    const fullStars = Math.round(rating || 0);
+    return `${"★".repeat(fullStars)}${"☆".repeat(Math.max(0, 5 - fullStars))}`;
+  }
+
+  function renderPriceBlock(product, large = false) {
+    const actualPrice = window.VedVigyanCart.formatINR(product.price);
+    if (!product.originalPrice || product.originalPrice <= product.price) {
+      return `<div class="price${large ? ' price-large' : ''}">${actualPrice}</div>`;
+    }
+
+    return `
+      <div class="rating-row">
+        <span class="stars" aria-hidden="true">${renderStars(product.rating)}</span>
+        <span class="rating-text">${product.rating}/5</span>
+      </div>
+      <div class="price-stack">
+        <div class="price${large ? ' price-large' : ''}">${actualPrice}</div>
+        <div class="price-meta">
+          <span class="old-price">${window.VedVigyanCart.formatINR(product.originalPrice)}</span>
+          <span class="discount-badge">${product.discountPercent}% OFF</span>
+        </div>
+      </div>
+    `;
+  }
+
   function syncInputs() {
     if (categorySelect) categorySelect.value = active;
     if (searchInput) searchInput.value = query;
@@ -89,9 +115,9 @@ function renderShop() {
             <span class="pill">${profile.wear || "daily"} use</span>
           </div>
         </div>
-        <div class="advisor-result-actions">
-          <div class="price">${window.VedVigyanCart.formatINR(product.price)}</div>
-          <div class="actions">
+          <div class="advisor-result-actions">
+            ${renderPriceBlock(product)}
+            <div class="actions">
             <a class="btn small" href="${product.url}">View Match</a>
             <button class="btn small primary" type="button" data-advisor-apply="${product.category}">
               Show Similar
@@ -176,7 +202,7 @@ function renderShop() {
               <span class="pill">Authenticity guidance</span>
             </div>
             <p class="sub" style="margin:0 0 12px">${p.short}</p>
-            <div class="price" style="font-size:20px">${window.VedVigyanCart.formatINR(p.price)}</div>
+            ${renderPriceBlock(p, true)}
             <div class="actions" style="margin-top:12px">
               <a class="btn small" href="${p.url}">View Full Details</a>
               <button class="btn small primary" type="button" data-add-to-cart="${p.id}">Add to Cart</button>
@@ -234,7 +260,7 @@ function renderShop() {
             <div class="body">
               <h3>${p.name}</h3>
               <div class="muted">${p.short}</div>
-              <div class="price">${window.VedVigyanCart.formatINR(p.price)}</div>
+              ${renderPriceBlock(p)}
               <div class="actions">
                 <a class="btn small" href="${p.url}">View Details</a>
                 <button class="btn small primary" type="button" data-add-to-cart="${p.id}">Add to Cart</button>

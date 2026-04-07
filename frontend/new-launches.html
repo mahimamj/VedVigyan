@@ -124,8 +124,8 @@
         </div>
         <div class="foot">
           <h4>Contact</h4>
-          <p>Email: <a href="mailto:support@vedvigyan.in">support@vedvigyan.in</a></p>
-          <p>Phone: <a href="tel:+919000000000">+91 90000 00000</a></p>
+          <p>Email: <a href="mailto:Vedvigyanindia@gmail.com">Vedvigyanindia@gmail.com</a></p>
+          <p>Phone: <a href="tel:+917900811101">+91 7900811101</a></p>
         </div>
       </div>
       <div class="copyright">© 2026 Ved Vigyan</div>
@@ -135,6 +135,28 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        const renderStars = (rating) => {
+          const fullStars = Math.round(rating || 0);
+          return `${"★".repeat(fullStars)}${"☆".repeat(Math.max(0, 5 - fullStars))}`;
+        };
+        const renderPriceBlock = (p) => {
+          if (!p.originalPrice || p.originalPrice <= p.price) {
+            return `<div class="price">${window.VedVigyanCart.formatINR(p.price)}</div>`;
+          }
+          return `
+            <div class="rating-row">
+              <span class="stars" aria-hidden="true">${renderStars(p.rating)}</span>
+              <span class="rating-text">${p.rating}/5</span>
+            </div>
+            <div class="price-stack">
+              <div class="price">${window.VedVigyanCart.formatINR(p.price)}</div>
+              <div class="price-meta">
+                <span class="old-price">${window.VedVigyanCart.formatINR(p.originalPrice)}</span>
+                <span class="discount-badge">${p.discountPercent}% OFF</span>
+              </div>
+            </div>
+          `;
+        };
         const grid = document.getElementById("launchGrid");
         const products = (window.VED_VIGYAN_DATA && window.VED_VIGYAN_DATA.products) || [];
         const newest = products.slice(-6).reverse();
@@ -153,7 +175,7 @@
                 <div class="body">
                   <h3>${p.name}</h3>
                   <div class="muted">${p.short}</div>
-                  <div class="price">${window.VedVigyanCart.formatINR(p.price)}</div>
+                  ${renderPriceBlock(p)}
                   <div class="actions">
                     <a class="btn small" href="${p.url}">View Details</a>
                     <button class="btn small primary" type="button" data-add-to-cart="${p.id}">Add to Cart</button>
@@ -172,4 +194,5 @@
     </script>
   </body>
 </html>
+
 
