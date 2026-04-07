@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wishlist | Ved Vigyan</title>
+    <meta name="description" content="Your saved products in Ved Vigyan wishlist." />
+    <link rel="canonical" href="/wishlist.html" />
+    <meta name="robots" content="noindex,follow" />
+    <link rel="stylesheet" href="/public/css/style.css" />
+
+    <script src="/public/js/data.js" defer></script>
+    <script src="/public/js/cart.js" defer></script>
+    <script src="/public/js/wishlist.js" defer></script>
+    <script src="/public/js/ui.js" defer></script>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container">
+        <div><b>Wishlist</b></div>
+        <div class="muted">Saved items</div>
+      </div>
+    </div>
+
+    <header class="nav">
+      <div class="container">
+        <a class="brand" href="/index.html" aria-label="Ved Vigyan Home">
+          <div class="brand-badge">VV</div>
+          <div>
+            <div class="brand-name">Ved Vigyan</div>
+            <div class="brand-tag">Spiritual products you can trust</div>
+          </div>
+        </a>
+
+        <nav class="navlinks" aria-label="Primary">
+          <a data-nav href="/index.html">Home</a>
+          <a data-nav href="/shop.html">Shop</a>
+          <a data-nav href="/blog.html">Blog</a>
+          <a data-nav href="/contact.html">Contact</a>
+          <a data-nav href="/faq.html">FAQ</a>
+        </nav>
+
+        <div class="navright">
+          <a class="iconbtn" href="/wishlist.html" aria-label="Wishlist">
+            Wishlist <span class="badge" data-wishlist-count>0</span>
+          </a>
+          <a class="iconbtn" href="/cart.html" aria-label="Cart">
+            Cart <span class="badge" data-cart-count>0</span>
+          </a>
+          <button class="iconbtn hamburger" id="hamburger" type="button" aria-label="Menu">Menu</button>
+        </div>
+      </div>
+      <div id="mobileMenu" class="container" style="display:none; padding-bottom:14px" data-open="false">
+        <div class="pagecard" style="padding:10px; display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn small" href="/index.html">Home</a>
+          <a class="btn small" href="/shop.html">Shop</a>
+          <a class="btn small" href="/blog.html">Blog</a>
+          <a class="btn small" href="/contact.html">Contact</a>
+          <a class="btn small" href="/faq.html">FAQ</a>
+          <a class="btn small" href="/wishlist.html">Wishlist</a>
+          <a class="btn small primary" href="/cart.html">Cart</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <div class="container">
+        <div class="pagecard">
+          <div class="breadcrumbs">Home / Wishlist</div>
+          <h1 class="section-title" style="margin:0 0 6px">Your Wishlist</h1>
+          <p class="section-sub" style="margin:0">Save products and come back anytime.</p>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <section class="grid" id="wishlistGrid" aria-label="Wishlist products"></section>
+        <div id="wishlistEmpty" class="pagecard" style="display:none; margin-top:14px">
+          <p class="sub" style="margin:0">
+            Your wishlist is empty. <a href="/shop.html"><b>Browse the shop</b></a>.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="foot">
+          <h4>Ved Vigyan</h4>
+          <p>Authentic spiritual essentials with helpful guidance.</p>
+        </div>
+        <div class="foot">
+          <h4>Quick Links</h4>
+          <p><a href="/shop.html">Shop</a></p>
+          <p><a href="/blog.html">Blog</a></p>
+          <p><a href="/faq.html">FAQ</a></p>
+          <p><a href="/contact.html">Contact</a></p>
+        </div>
+        <div class="foot">
+          <h4>Contact</h4>
+          <p>Email: <a href="mailto:support@vedvigyan.in">support@vedvigyan.in</a></p>
+          <p>Phone: <a href="tel:+919000000000">+91 90000 00000</a></p>
+        </div>
+      </div>
+      <div class="copyright">© 2026 Ved Vigyan</div>
+    </footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const grid = document.getElementById("wishlistGrid");
+        const empty = document.getElementById("wishlistEmpty");
+        const products = (window.VED_VIGYAN_DATA && window.VED_VIGYAN_DATA.products) || [];
+        const wishedIds = (window.VedVigyanWishlist && window.VedVigyanWishlist.loadWishlist().ids) || [];
+
+        const wished = wishedIds.map((id) => products.find((p) => p.id === id)).filter(Boolean);
+        if (!wished.length) {
+          if (empty) empty.style.display = "block";
+          if (grid) grid.innerHTML = "";
+          return;
+        }
+
+        if (empty) empty.style.display = "none";
+        grid.innerHTML = wished
+          .map((p) => {
+            return `
+              <article class="card">
+                <div class="thumb">
+                  <img src="${p.image}" alt="${p.imageAlt}" width="420" height="260" loading="lazy">
+                </div>
+                <div class="pillrow">
+                  <span class="pill">${p.category.replace("-", " ")}</span>
+                  <span class="pill">Saved</span>
+                </div>
+                <div class="body">
+                  <h3>${p.name}</h3>
+                  <div class="muted">${p.short}</div>
+                  <div class="price">${window.VedVigyanCart.formatINR(p.price)}</div>
+                  <div class="actions">
+                    <a class="btn small" href="${p.url}">View Details</a>
+                    <button class="btn small primary" type="button" data-add-to-cart="${p.id}">Add to Cart</button>
+                    <button class="btn small wishbtn" type="button" data-wishlist="${p.id}" aria-pressed="true">♥</button>
+                  </div>
+                </div>
+              </article>
+            `;
+          })
+          .join("");
+
+        window.VedVigyanCart.wireAddToCartButtons(grid);
+        window.VedVigyanWishlist.wireWishlistButtons(grid);
+        window.VedVigyanWishlist.updateWishButtons(grid);
+      });
+    </script>
+  </body>
+</html>
+

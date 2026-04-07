@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="320" viewBox="0 0 520 320" role="img" aria-label="Kundli Report">
+  <defs>
+    <linearGradient id="ak" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#1b5cff" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#d4af37" stop-opacity="0.16"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="520" height="320" rx="28" fill="url(#ak)"/>
+  <g transform="translate(260 164)" opacity="0.88">
+    <circle r="94" fill="none" stroke="#1b5cff" stroke-width="8" opacity="0.18"/>
+    <circle r="78" fill="none" stroke="#1b5cff" stroke-width="6" opacity="0.16"/>
+    <path d="M-56-56 L56-56 L56 56 L-56 56 Z" fill="none" stroke="#1d1a14" stroke-width="5" opacity="0.18"/>
+    <path d="M0-70 L0 70 M-70 0 L70 0" stroke="#1d1a14" stroke-width="4" opacity="0.14"/>
+    <circle r="4" fill="#1d1a14" opacity="0.18"/>
+  </g>
+  <text x="26" y="48" font-family="Segoe UI, Arial" font-size="22" font-weight="800" fill="#1d1a14" opacity="0.9">Ved Vigyan</text>
+  <text x="26" y="78" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1d1a14" opacity="0.65">Astrology</text>
+</svg>
+

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shop Rudraksha, Mala & Puja Items | Ved Vigyan</title>
+    <meta
+      name="description"
+      content="Shop authentic Rudraksha, Tulsi malas, and puja items online. Filter by category and add items to cart."
+    />
+    <link rel="canonical" href="/shop.html" />
+    <meta name="robots" content="index,follow" />
+    <link rel="stylesheet" href="/public/css/style.css" />
+
+    <script src="/public/js/data.js" defer></script>
+    <script src="/public/js/cart.js" defer></script>
+    <script src="/public/js/wishlist.js" defer></script>
+    <script src="/public/js/ui.js" defer></script>
+    <script src="/public/js/shop.js" defer></script>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container">
+        <div><b>Trusted by 10L+ Devotees</b></div>
+        <div class="social" aria-label="Social links">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Pinterest">p</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="YouTube">yt</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="nav">
+      <div class="container">
+        <a class="brand" href="/index.html" aria-label="Ved Vigyan Home">
+          <div class="brand-badge">VV</div>
+          <div>
+            <div class="brand-name">Ved Vigyan</div>
+            <div class="brand-tag">Spiritual products you can trust</div>
+          </div>
+        </a>
+
+        <nav class="navlinks" aria-label="Primary">
+          <a data-nav href="/index.html">Home</a>
+          <a data-nav href="/cashback-offer.html">100% Cashback Offer</a>
+          <a data-nav href="/new-launches.html">New Launches</a>
+          <details class="dropdown">
+            <summary>Rudraksha</summary>
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a class="dropdown-item" href="/rudraksha.html">All Rudraksha <span>Browse</span></a>
+                <a class="dropdown-item" href="/rudraksha/5-mukhi.html">5 Mukhi <span>Bestseller</span></a>
+                <a class="dropdown-item" href="/rudraksha/7-mukhi.html">7 Mukhi <span>Popular</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="dropdown">
+            <summary>Jaap Mala</summary>
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a class="dropdown-item" href="/mala.html">Mala Collection <span>Browse</span></a>
+                <a class="dropdown-item" href="/mala/tulsi-mala.html">Tulsi Mala <span>108 beads</span></a>
+                <a class="dropdown-item" href="/rudraksha-mala/5-mukhi-mala-108.html">Rudraksha Mala <span>108 beads</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="dropdown">
+            <summary>Astro Stone</summary>
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a class="dropdown-item" href="/gem-stone.html">Gem Stones <span>Crystals</span></a>
+                <a class="dropdown-item" href="/gem-stone/amethyst-bracelet.html">Amethyst <span>Calm</span></a>
+                <a class="dropdown-item" href="/gem-stone/tiger-eye-bracelet.html">Tiger Eye <span>Confidence</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="dropdown">
+            <summary>Pooja Essentials</summary>
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a class="dropdown-item" href="/shop.html">Puja Items <span>Browse</span></a>
+                <a class="dropdown-item" href="/puja-items/gangajal.html">Gangajal <span>250ml</span></a>
+              </div>
+            </div>
+          </details>
+          <a data-nav href="/gifting.html">Gifting</a>
+          <a data-nav href="/faq.html">FAQ</a>
+        </nav>
+
+        <div class="navright">
+          <a class="iconbtn icon" href="/shop.html" aria-label="Search">🔎</a>
+          <a class="iconbtn" href="/wishlist.html" aria-label="Wishlist">
+            Wishlist <span class="badge" data-wishlist-count>0</span>
+          </a>
+          <a class="iconbtn" href="/cart.html" aria-label="Cart">
+            Cart <span class="badge" data-cart-count>0</span>
+          </a>
+          <button class="iconbtn hamburger" id="hamburger" type="button" aria-label="Menu">Menu</button>
+        </div>
+      </div>
+      <div id="mobileMenu" class="container" style="display:none; padding-bottom:14px" data-open="false">
+        <div class="pagecard" style="padding:10px; display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn small" href="/index.html">Home</a>
+          <a class="btn small" href="/shop.html">Shop</a>
+          <a class="btn small" href="/blog.html">Blog</a>
+          <a class="btn small" href="/contact.html">Contact</a>
+          <a class="btn small" href="/faq.html">FAQ</a>
+          <a class="btn small" href="/wishlist.html">Wishlist</a>
+          <a class="btn small primary" href="/cart.html">Cart</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <div class="container">
+        <div class="pagecard">
+          <div class="breadcrumbs">Home / Shop</div>
+          <h1 class="section-title" style="margin:0 0 6px">Shop Spiritual Products</h1>
+          <p class="section-sub" style="margin:0">
+            Filter by category, search by name, and add to cart.
+            <span id="resultCount" class="muted" style="margin-left:8px"></span>
+          </p>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="toolbar" aria-label="Filters">
+          <div class="search" style="min-width:220px">
+            <span class="muted" aria-hidden="true">Category</span>
+            <select id="categorySelect" aria-label="Filter by category" style="border:none; outline:none; background:transparent; width:100%">
+              <option value="all">All</option>
+              <option value="rudraksha">Rudraksha</option>
+              <option value="rudraksha-mala">Rudraksha Mala</option>
+              <option value="mala">Mala</option>
+              <option value="bracelet">Bracelet</option>
+              <option value="gem-stone">Gem Stone</option>
+              <option value="astrology">Astrology</option>
+              <option value="puja-items">Puja Items</option>
+            </select>
+          </div>
+          <div class="search">
+            <span class="muted" aria-hidden="true">Search</span>
+            <input id="searchInput" type="search" placeholder="Try: 5 Mukhi, Tulsi mala…" aria-label="Search products" />
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+            <div class="search" style="min-width:180px">
+              <span class="muted" aria-hidden="true">Sort</span>
+              <select id="sortSelect" aria-label="Sort products" style="border:none; outline:none; background:transparent; width:100%">
+                <option value="featured">Featured</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="name-asc">Name: A to Z</option>
+              </select>
+            </div>
+            <div class="search" style="min-width:160px">
+              <span class="muted" aria-hidden="true">Min</span>
+              <input id="minPrice" type="number" inputmode="numeric" placeholder="0" aria-label="Minimum price" />
+            </div>
+            <div class="search" style="min-width:160px">
+              <span class="muted" aria-hidden="true">Max</span>
+              <input id="maxPrice" type="number" inputmode="numeric" placeholder="5000" aria-label="Maximum price" />
+            </div>
+          </div>
+          <a class="btn small" href="/cart.html">Go to Cart</a>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <section class="grid" id="productGrid" aria-label="Product listing"></section>
+
+        <div style="height:14px"></div>
+
+        <section class="pagecard" aria-label="FAQ">
+          <div class="section-head" style="margin:0 0 10px">
+            <div>
+              <h2 class="section-title">FAQ</h2>
+              <p class="section-sub">Quick answers before you buy.</p>
+            </div>
+            <a class="btn small" href="/faq.html">More FAQs</a>
+          </div>
+          <details class="pagecard" style="padding:14px; margin-bottom:10px">
+            <summary><b>Do products come with authenticity guidance?</b></summary>
+            <p class="sub" style="margin:10px 0 0">Yes. We include simple checks and recommendations on product pages.</p>
+          </details>
+          <details class="pagecard" style="padding:14px; margin-bottom:10px">
+            <summary><b>Can I save items for later?</b></summary>
+            <p class="sub" style="margin:10px 0 0">Yes—use the ♡ button to add items to your wishlist.</p>
+          </details>
+          <details class="pagecard" style="padding:14px">
+            <summary><b>Do natural stones vary in color?</b></summary>
+            <p class="sub" style="margin:10px 0 0">Yes. Natural crystals can vary in shade and patterns—this is normal.</p>
+          </details>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="foot">
+          <h4>Ved Vigyan</h4>
+          <p>Authentic Rudraksha, malas and puja essentials with a clean shopping experience.</p>
+        </div>
+        <div class="foot">
+          <h4>Quick Links</h4>
+          <p><a href="/shop.html">Shop</a></p>
+          <p><a href="/blog.html">Blog</a></p>
+          <p><a href="/contact.html">Contact</a></p>
+        </div>
+        <div class="foot">
+          <h4>Contact</h4>
+          <p>Email: <a href="mailto:support@vedvigyan.in">support@vedvigyan.in</a></p>
+          <p>Phone: <a href="tel:+919000000000">+91 90000 00000</a></p>
+        </div>
+      </div>
+      <div class="copyright">© 2026 Ved Vigyan</div>
+    </footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
+

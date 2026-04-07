@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="320" viewBox="0 0 520 320" role="img" aria-label="7 Mukhi Rudraksha">
+  <defs>
+    <linearGradient id="g2" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f28c28" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#d4af37" stop-opacity="0.28"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="520" height="320" rx="28" fill="url(#g2)"/>
+  <g transform="translate(260 164)">
+    <circle r="92" fill="#704125" opacity="0.18"/>
+    <circle r="86" fill="#704125" opacity="0.22"/>
+    <circle r="80" fill="#834d2c" opacity="0.95"/>
+    <path d="M0-78 C-10-52 -10-20 0 6 C10 32 10 56 0 74" fill="none" stroke="#331d12" stroke-width="5" opacity="0.52"/>
+    <path d="M-38-70 C-54-34 -54-4 -38 26 C-26 48 -26 62 -38 74" fill="none" stroke="#331d12" stroke-width="4" opacity="0.38"/>
+    <path d="M38-70 C54-34 54-4 38 26 C26 48 26 62 38 74" fill="none" stroke="#331d12" stroke-width="4" opacity="0.38"/>
+    <path d="M-12-76 C-22-50 -22-22 -12 6 C-2 34 -2 58 -12 74" fill="none" stroke="#331d12" stroke-width="3.4" opacity="0.35"/>
+    <path d="M12-76 C22-50 22-22 12 6 C2 34 2 58 12 74" fill="none" stroke="#331d12" stroke-width="3.4" opacity="0.35"/>
+    <circle r="6" fill="#2a1911" opacity="0.55"/>
+  </g>
+  <text x="26" y="48" font-family="Segoe UI, Arial" font-size="22" font-weight="800" fill="#1d1a14" opacity="0.9">Ved Vigyan</text>
+  <text x="26" y="78" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1d1a14" opacity="0.65">Authentic Spiritual Products</text>
+</svg>
+

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>New Launches | Ved Vigyan</title>
+    <meta name="description" content="Explore new launches in Rudraksha, malas, bracelets and gem stones at Ved Vigyan." />
+    <link rel="canonical" href="/new-launches.html" />
+    <meta name="robots" content="index,follow" />
+    <link rel="stylesheet" href="/public/css/style.css" />
+
+    <script src="/public/js/data.js" defer></script>
+    <script src="/public/js/cart.js" defer></script>
+    <script src="/public/js/wishlist.js" defer></script>
+    <script src="/public/js/ui.js" defer></script>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container">
+        <div><b>New Launches</b></div>
+        <div class="social" aria-label="Social links">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Pinterest">p</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="YouTube">yt</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="nav">
+      <div class="container">
+        <a class="brand" href="/index.html" aria-label="Ved Vigyan Home">
+          <div class="brand-badge">VV</div>
+          <div>
+            <div class="brand-name">Ved Vigyan</div>
+            <div class="brand-tag">Spiritual products you can trust</div>
+          </div>
+        </a>
+
+        <nav class="navlinks" aria-label="Primary">
+          <a data-nav href="/index.html">Home</a>
+          <a data-nav href="/cashback-offer.html">100% Cashback Offer</a>
+          <a data-nav href="/new-launches.html">New Launches</a>
+          <details class="dropdown">
+            <summary>Rudraksha</summary>
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a class="dropdown-item" href="/rudraksha.html">All Rudraksha <span>Browse</span></a>
+                <a class="dropdown-item" href="/rudraksha/5-mukhi.html">5 Mukhi <span>Bestseller</span></a>
+                <a class="dropdown-item" href="/rudraksha/7-mukhi.html">7 Mukhi <span>Popular</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="dropdown">
+            <summary>Jaap Mala</summary>
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a class="dropdown-item" href="/mala.html">Mala Collection <span>Browse</span></a>
+                <a class="dropdown-item" href="/mala/tulsi-mala.html">Tulsi Mala <span>108 beads</span></a>
+                <a class="dropdown-item" href="/rudraksha-mala/5-mukhi-mala-108.html">Rudraksha Mala <span>108 beads</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="dropdown">
+            <summary>Astro Stone</summary>
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a class="dropdown-item" href="/gem-stone.html">Gem Stones <span>Crystals</span></a>
+                <a class="dropdown-item" href="/gem-stone/amethyst-bracelet.html">Amethyst <span>Calm</span></a>
+                <a class="dropdown-item" href="/gem-stone/tiger-eye-bracelet.html">Tiger Eye <span>Confidence</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="dropdown">
+            <summary>Pooja Essentials</summary>
+            <div class="dropdown-menu">
+              <div class="dropdown-grid">
+                <a class="dropdown-item" href="/shop.html">Puja Items <span>Browse</span></a>
+                <a class="dropdown-item" href="/puja-items/gangajal.html">Gangajal <span>250ml</span></a>
+              </div>
+            </div>
+          </details>
+          <a data-nav href="/gifting.html">Gifting</a>
+        </nav>
+
+        <div class="navright">
+          <a class="iconbtn icon" href="/shop.html" aria-label="Search">🔎</a>
+          <a class="iconbtn" href="/wishlist.html" aria-label="Wishlist">
+            Wishlist <span class="badge" data-wishlist-count>0</span>
+          </a>
+          <a class="iconbtn" href="/cart.html" aria-label="Cart">
+            Cart <span class="badge" data-cart-count>0</span>
+          </a>
+          <button class="iconbtn hamburger" id="hamburger" type="button" aria-label="Menu">Menu</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <div class="container">
+        <div class="pagecard">
+          <div class="breadcrumbs">Home / New Launches</div>
+          <h1 class="section-title" style="margin:0 0 6px">New Launches</h1>
+          <p class="section-sub" style="margin:0">A simple SEO landing page for new products (demo).</p>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <section class="grid" id="launchGrid" aria-label="New launches"></section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="foot">
+          <h4>Ved Vigyan</h4>
+          <p>Authentic spiritual essentials with helpful guidance.</p>
+        </div>
+        <div class="foot">
+          <h4>Quick Links</h4>
+          <p><a href="/shop.html">Shop</a></p>
+          <p><a href="/faq.html">FAQ</a></p>
+          <p><a href="/contact.html">Contact</a></p>
+        </div>
+        <div class="foot">
+          <h4>Contact</h4>
+          <p>Email: <a href="mailto:support@vedvigyan.in">support@vedvigyan.in</a></p>
+          <p>Phone: <a href="tel:+919000000000">+91 90000 00000</a></p>
+        </div>
+      </div>
+      <div class="copyright">© 2026 Ved Vigyan</div>
+    </footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const grid = document.getElementById("launchGrid");
+        const products = (window.VED_VIGYAN_DATA && window.VED_VIGYAN_DATA.products) || [];
+        const newest = products.slice(-6).reverse();
+        if (!grid) return;
+        grid.innerHTML = newest
+          .map(
+            (p) => `
+              <article class="card">
+                <div class="thumb">
+                  <img src="${p.image}" alt="${p.imageAlt}" width="420" height="260" loading="lazy">
+                </div>
+                <div class="pillrow">
+                  <span class="pill">New</span>
+                  <span class="pill">${p.category.replace("-", " ")}</span>
+                </div>
+                <div class="body">
+                  <h3>${p.name}</h3>
+                  <div class="muted">${p.short}</div>
+                  <div class="price">${window.VedVigyanCart.formatINR(p.price)}</div>
+                  <div class="actions">
+                    <a class="btn small" href="${p.url}">View Details</a>
+                    <button class="btn small primary" type="button" data-add-to-cart="${p.id}">Add to Cart</button>
+                    <button class="btn small wishbtn" type="button" data-wishlist="${p.id}" aria-label="Add to wishlist">♡</button>
+                  </div>
+                </div>
+              </article>
+            `
+          )
+          .join("");
+
+        window.VedVigyanCart.wireAddToCartButtons(grid);
+        window.VedVigyanWishlist?.wireWishlistButtons?.(grid);
+        window.VedVigyanWishlist?.updateWishButtons?.(grid);
+      });
+    </script>
+  </body>
+</html>
+
