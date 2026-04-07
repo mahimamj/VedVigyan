@@ -6,16 +6,124 @@ function renderShop() {
   const minPriceInput = document.getElementById("minPrice");
   const maxPriceInput = document.getElementById("maxPrice");
   const countEl = document.getElementById("resultCount");
+  const advisorForm = document.getElementById("advisorForm");
+  const advisorResult = document.getElementById("advisorResult");
   if (!grid) return;
 
   const data = window.VED_VIGYAN_DATA;
   const products = data?.products || [];
+  const FILTERS_KEY = "ved_vigyan_shop_filters_v2";
 
   let active = "all";
   let query = "";
   let sort = "featured";
   let minPrice = "";
   let maxPrice = "";
+
+  function syncInputs() {
+    if (categorySelect) categorySelect.value = active;
+    if (searchInput) searchInput.value = query;
+    if (sortSelect) sortSelect.value = sort;
+    if (minPriceInput) minPriceInput.value = minPrice;
+    if (maxPriceInput) maxPriceInput.value = maxPrice;
+  }
+
+  function persistFilters() {
+    localStorage.setItem(
+      FILTERS_KEY,
+      JSON.stringify({ active, query, sort, minPrice, maxPrice })
+    );
+  }
+
+  function restoreFilters() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(FILTERS_KEY) || "null");
+      if (!saved) return;
+      active = saved.active || "all";
+      query = saved.query || "";
+      sort = saved.sort || "featured";
+      minPrice = saved.minPrice || "";
+      maxPrice = saved.maxPrice || "";
+      syncInputs();
+    } catch {
+      // Ignore malformed local state and continue with defaults.
+    }
+  }
+
+  function scoreProduct(product, profile) {
+    const tags = product.tags || [];
+    let score = 0;
+
+    if (profile.goal && tags.includes(profile.goal)) score += 4;
+    if (profile.goal === "clarity" && tags.includes("focus")) score += 1;
+    if (profile.goal === "prosperity" && tags.includes("guidance")) score += 1;
+    if (profile.experience === "beginner" && tags.includes("beginner")) score += 3;
+    if (profile.experience === "regular" && tags.includes("serious-practice")) score += 3;
+    if (profile.wear === "daily" && tags.includes("daily-wear")) score += 3;
+    if (profile.wear === "ritual" && tags.includes("ritual")) score += 3;
+    if (profile.budget === "under-700" && product.price <= 700) score += 2;
+    if (profile.budget === "700-1500" && product.price >= 700 && product.price <= 1500) score += 2;
+    if (profile.budget === "1500-plus" && product.price >= 1500) score += 2;
+    if (product.price === 0) score -= 1;
+
+    return score;
+  }
+
+  function renderAdvisorResult(product, profile) {
+    if (!advisorResult) return;
+    if (!product) {
+      advisorResult.innerHTML =
+        '<p class="sub" style="margin:0">No close match yet. Try a wider budget or a different goal.</p>';
+      return;
+    }
+
+    advisorResult.innerHTML = `
+      <div class="advisor-result-card">
+        <div>
+          <div class="eyebrow">Recommended for you</div>
+          <h3>${product.name}</h3>
+          <p class="sub" style="margin:0 0 10px">${product.short}</p>
+          <div class="advisor-meta">
+            <span class="pill">${profile.goal || "balanced"} focus</span>
+            <span class="pill">${profile.experience || "beginner"} friendly</span>
+            <span class="pill">${profile.wear || "daily"} use</span>
+          </div>
+        </div>
+        <div class="advisor-result-actions">
+          <div class="price">${window.VedVigyanCart.formatINR(product.price)}</div>
+          <div class="actions">
+            <a class="btn small" href="${product.url}">View Match</a>
+            <button class="btn small primary" type="button" data-advisor-apply="${product.category}">
+              Show Similar
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    advisorResult.querySelector("[data-advisor-apply]")?.addEventListener("click", () => {
+      active = product.category;
+      query = profile.goal === "clarity" ? "focus" : "";
+      syncInputs();
+      apply();
+      window.scrollTo({ top: Math.max(0, grid.offsetTop - 120), behavior: "smooth" });
+    });
+  }
+
+  function wireAdvisor() {
+    if (!advisorForm) return;
+    advisorForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const profile = Object.fromEntries(new FormData(advisorForm).entries());
+      const [match] = [...products]
+        .map((product) => ({ product, score: scoreProduct(product, profile) }))
+        .filter((entry) => entry.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .map((entry) => entry.product);
+
+      renderAdvisorResult(match, profile);
+    });
+  }
 
   function ensureQuickViewModal() {
     if (document.getElementById("quickViewOverlay")) return;
@@ -98,7 +206,9 @@ function renderShop() {
       const catOk = active === "all" ? true : p.category === active;
       const qOk = !q
         ? true
-        : `${p.name} ${p.short} ${p.category}`.toLowerCase().includes(q);
+        : `${p.name} ${p.short} ${p.category} ${(p.tags || []).join(" ")}`
+            .toLowerCase()
+            .includes(q);
       const priceOk =
         (min === null || p.price >= min) && (max === null || p.price <= max);
       return catOk && qOk && priceOk;
@@ -107,6 +217,8 @@ function renderShop() {
     if (sort === "price-asc") filtered = filtered.sort((a, b) => a.price - b.price);
     if (sort === "price-desc") filtered = filtered.sort((a, b) => b.price - a.price);
     if (sort === "name-asc") filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
+
+    persistFilters();
 
     grid.innerHTML = filtered
       .map((p) => {
@@ -176,6 +288,8 @@ function renderShop() {
   // Initialize from dropdown (if present)
   if (categorySelect) active = categorySelect.value || "all";
 
+  restoreFilters();
+  wireAdvisor();
   apply();
 }
 

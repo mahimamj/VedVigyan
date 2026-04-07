@@ -1,18 +1,78 @@
+function findCategoryForCartItem(productId) {
+  const catalog = (window.VED_VIGYAN_DATA && window.VED_VIGYAN_DATA.products) || [];
+  return catalog.find((product) => product.id === productId)?.category || "";
+}
+
+function createRecommendationMarkup(product, label) {
+  return `
+    <article class="recommend-card">
+      <div class="thumb">
+        <img src="${product.image}" alt="${product.imageAlt}" width="240" height="180" loading="lazy">
+      </div>
+      <div class="body">
+        <div class="eyebrow">${label}</div>
+        <h3>${product.name}</h3>
+        <p class="sub" style="margin:0">${product.short}</p>
+        <div class="price">${window.VedVigyanCart.formatINR(product.price)}</div>
+        <div class="actions">
+          <a class="btn small" href="${product.url}">View Details</a>
+          <button class="btn small primary" type="button" data-add-to-cart="${product.id}">Add to Cart</button>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
 function renderCartPage() {
   const tableBody = document.getElementById("cartBody");
   const subtotalEl = document.getElementById("cartSubtotal");
   const emptyEl = document.getElementById("cartEmpty");
   const actionsEl = document.getElementById("cartActions");
+  const summaryHost = document.getElementById("cartSmartSummary");
+  const recommendationHost = document.getElementById("cartRecommendations");
   if (!tableBody) return;
 
   const cart = window.VedVigyanCart.loadCart();
   const items = Object.values(cart.items);
+  const subtotal = window.VedVigyanCart.cartSubtotal(cart);
+  const freeShippingGap = Math.max(0, 1499 - subtotal);
+  const catalog = (window.VED_VIGYAN_DATA && window.VED_VIGYAN_DATA.products) || [];
+
+  if (summaryHost) {
+    summaryHost.innerHTML = `
+      <div class="smart-summary">
+        <div>
+          <div class="eyebrow">Cart insight</div>
+          <h3>${items.length ? "Your cart is building nicely" : "Start with one simple spiritual essential"}</h3>
+          <p class="sub" style="margin:0">
+            ${
+              items.length
+                ? freeShippingGap > 0
+                  ? `Add ${window.VedVigyanCart.formatINR(freeShippingGap)} more to unlock free shipping in this demo flow.`
+                  : "You have unlocked free shipping in this demo flow."
+                : "Popular starter picks include Tulsi mala, Rudraksha bracelet, and Gangajal."
+            }
+          </p>
+        </div>
+        <div class="progress-strip" aria-hidden="true">
+          <span style="width:${Math.min(100, Math.round((subtotal / 1499) * 100))}%"></span>
+        </div>
+      </div>
+    `;
+  }
 
   if (!items.length) {
     tableBody.innerHTML = "";
     if (subtotalEl) subtotalEl.textContent = window.VedVigyanCart.formatINR(0);
     if (emptyEl) emptyEl.style.display = "block";
     if (actionsEl) actionsEl.style.display = "none";
+    if (recommendationHost) {
+      recommendationHost.innerHTML = catalog
+        .slice(0, 3)
+        .map((product) => createRecommendationMarkup(product, "Starter pick"))
+        .join("");
+      window.VedVigyanCart.wireAddToCartButtons(recommendationHost);
+    }
     return;
   }
 
@@ -50,7 +110,22 @@ function renderCartPage() {
     })
     .join("");
 
-  if (subtotalEl) subtotalEl.textContent = window.VedVigyanCart.formatINR(window.VedVigyanCart.cartSubtotal(cart));
+  if (subtotalEl) subtotalEl.textContent = window.VedVigyanCart.formatINR(subtotal);
+
+  if (recommendationHost) {
+    const categories = new Set(items.map((item) => findCategoryForCartItem(item.id)));
+    const recommendations = catalog
+      .filter((product) => !cart.items[product.id] && categories.has(product.category))
+      .slice(0, 3);
+
+    recommendationHost.innerHTML = recommendations.length
+      ? recommendations
+          .map((product) => createRecommendationMarkup(product, "Pairs well with your cart"))
+          .join("")
+      : '<p class="sub" style="margin:0">Your cart already covers this category well. You can head to checkout when ready.</p>';
+
+    window.VedVigyanCart.wireAddToCartButtons(recommendationHost);
+  }
 
   tableBody.querySelectorAll("[data-remove]").forEach((b) => {
     b.addEventListener("click", () => {
